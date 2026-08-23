@@ -25,10 +25,23 @@ REST 用户需要 `read,api,rest-api`。账号写在项目根目录 `.env`，不
 
 镜像默认监听 `8787`，运行时读取根目录 `.env` 中的 `ROS_URL`、`ROS_USER`、`ROS_PASSWORD`、`WAN_INTERFACE`。
 
+其中 `ROS_URL` 就是 RouterOS 的地址，必要时可以带端口，例如：
+
+```env
+ROS_URL=http://10.1.1.1
+ROS_URL=http://10.1.1.1:80
+ROS_URL=https://10.1.1.1:443
+```
+
+完整步骤：
+
 ```bash
 cp .env.example .env
+# 编辑 .env，填入你的 RouterOS IP/端口和账号密码
 docker compose up -d --build
 ```
+
+`docker-compose.yml` 没有把路由器 IP 写死，是因为这些值从 `.env` 注入，便于不同环境复用，也避免把设备地址和密码直接提交到仓库。
 
 如果要手工构建镜像：
 

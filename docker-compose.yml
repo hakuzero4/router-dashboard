@@ -14,6 +14,11 @@ services:
       - .env
     environment:
       APP_PORT: "8787"
+      # RouterOS connection settings come from .env:
+      # ROS_URL=http://10.1.1.1[:port]
+      # ROS_USER=...
+      # ROS_PASSWORD=...
+      # WAN_INTERFACE=...
     ports:
       - "8787:8787"
     volumes:
