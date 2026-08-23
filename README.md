@@ -36,12 +36,21 @@ ROS_URL=https://10.1.1.1:443
 完整步骤：
 
 ```bash
+mkdir -p data
 cp .env.example .env
 # 编辑 .env，填入你的 RouterOS IP/端口和账号密码
 docker compose up -d --build
 ```
 
 `docker-compose.yml` 没有把路由器 IP 写死，是因为这些值从 `.env` 注入，便于不同环境复用，也避免把设备地址和密码直接提交到仓库。
+
+如果之前已经启动过并遇到 `sqlite3.OperationalError: unable to open database file`，通常是宿主机 `./data` 目录权限不对。先删除旧容器，然后执行：
+
+```bash
+mkdir -p data
+docker compose down
+docker compose up -d --build
+```
 
 如果要手工构建镜像：
 

@@ -32,21 +32,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-RUN groupadd --gid "${APP_GID}" "${APP_USER}" \
-    && useradd --uid "${APP_UID}" --gid "${APP_GID}" --create-home --shell /usr/sbin/nologin "${APP_USER}"
-
 COPY backend/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && rm -f /tmp/requirements.txt
 
 COPY backend/ /app/backend/
 COPY --from=frontend-build /app/frontend/dist /app/frontend/dist
-RUN mkdir -p /app/data \
-    && chown -R "${APP_UID}:${APP_GID}" /app
+RUN mkdir -p /app/data
 
 VOLUME ["/app/data"]
 EXPOSE ${APP_PORT}
-
-USER ${APP_USER}
 
 CMD ["sh", "-c", "uvicorn main:app --app-dir /app/backend --host 0.0.0.0 --port ${APP_PORT}"]
