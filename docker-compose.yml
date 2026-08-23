@@ -1,0 +1,21 @@
+services:
+  hap-dash:
+    image: ghcr.io/hakuzero4/router-dashboard:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: "22"
+        PYTHON_VERSION: "3.12"
+        APP_PORT: "8787"
+        APP_UID: "10001"
+        APP_GID: "10001"
+    env_file:
+      - .env
+    environment:
+      APP_PORT: "8787"
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

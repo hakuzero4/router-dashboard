@@ -1,0 +1,130 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import 'tailwindcss';
+
+:root,
+html[data-theme='dark'] {
+  --ink: #e8e4db;
+  --mute: #8c877c;
+  --line: #2a2d31;
+  --rx: #4a9b82;
+  --tx: #c4a574;
+  --bg: #121417;
+  --surface: #16181c;
+  --panel: #141618;
+  --danger: #b56a52;
+  --danger-text: #d9b09e;
+  --grid: rgba(232, 228, 219, 0.08);
+  --label: rgba(232, 228, 219, 0.38);
+  --node: #16181c;
+  --node-core: #1a1e22;
+  --node-router: #17211e;
+  --node-cloud: #181b1f;
+  --node-line: #2a2d31;
+  --node-idle: #5c534a;
+}
+
+html[data-theme='light'] {
+  --ink: #1f1e1b;
+  --mute: #6f6b63;
+  --line: #d8d3c8;
+  --rx: #2d7a62;
+  --tx: #9a7840;
+  --bg: #f3f0e8;
+  --surface: #fffcf6;
+  --panel: #ebe7de;
+  --danger: #b56a52;
+  --danger-text: #8a4a3a;
+  --grid: rgba(31, 30, 27, 0.08);
+  --label: rgba(31, 30, 27, 0.42);
+  --node: #fffcf6;
+  --node-core: #f4f0e6;
+  --node-router: #e7f0ea;
+  --node-cloud: #efebe3;
+  --node-line: #d8d3c8;
+  --node-idle: #a39c90;
+}
+
+@theme {
+  --font-sans: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-rx: var(--rx);
+  --color-tx: var(--tx);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-danger: var(--danger);
+  --color-danger-text: var(--danger-text);
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  background-image:
+    radial-gradient(1200px 500px at 0% -10%, color-mix(in srgb, var(--rx) 10%, transparent), transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, color-mix(in srgb, var(--tx) 8%, transparent), transparent 50%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--rx);
+  color: var(--bg);
+}
+
+@keyframes pulse-live {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.live-dot {
+  animation: pulse-live 1.8s ease-in-out infinite;
+}
+
+@keyframes topo-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.topo-flow {
+  stroke-dasharray: 5 9;
+  animation: topo-flow 1.6s linear infinite;
+}
+
+.topo-view.topo-dragging .topo-flow {
+  animation: none;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+.topo-view,
+.topo-view svg,
+.topo-view text {
+  user-select: none;
+  -webkit-user-select: none;
+}
